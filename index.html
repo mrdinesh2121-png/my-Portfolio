@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Portfolio<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h3 class="fade-in">Hello, I'm</h3>
+                <h1 class="fade-in delay-1"> Dinesh</h1>
+                <p class="fade-in delay-2">Full-Stack Developer & UI/UX Designer specializing in building exceptional digital experiences.</p>
+                <div class="hero-btns fade-in delay-3">
+                    <a href="#contact" class="btn primary-btn">Hire Me</a>
+                    <a href="#projects" class="btn secondary-btn">View Work</a>
+                </div>
+            </div>
+            <div class="hero-image scale-in">
+                <img src="dinu.jpeg" alt="dinu">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-container">
+            <div class="about-card reveal">
+                <i class="fas fa-code card-icon"></i>
+                <h3>Development</h3>
+                <p>Clean, scalable code written in modern frameworks with performance and SEO in mind.</p>
+            </div>
+            <div class="about-card reveal">
+                <i class="fas fa-palette card-icon"></i>
+                <h3>Design</h3>
+                <p>Creating intuitive, user-centered digital interfaces that balance beauty and functionality.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card reveal">
+                <div class="project-img">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop" alt="Project 1">
+                </div>
+                <div class="project-info">
+                    <h3>E-Commerce Dashboard</h3>
+                    <p>A high-performance analytics platform built for modern retail businesses.</p>
+                    <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="project-card reveal">
+                <div class="project-img">
+                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=600&auto=format&fit=crop" alt="Project 2">
+                </div>
+                <div class="project-info">
+                    <h3>Fintech Mobile App</h3>
+                    <p>A secure, fluid interface design optimized for personal wealth management.</p>
+                    <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-container">
+            <div class="contact-info reveal">
+                <h3>Let's discuss your project</h3>
+                <p>Click any option below to connect instantly or use the form to send an email.</p>
+                
+                <div class="info-details">
+                    <!-- Email Direct Link -->
+                    <a href="mailto:mrdinesh2121@gmail.com" class="contact-item">
+                        <i class="fas fa-envelope"></i> <span>mrdinesh2121@gmail.com</span>
+                    </a>
+                    
+                    <!-- WhatsApp Direct Link  -->
+                    <a href="https://wa.me/+917015949787?text=Hi%20dinesh,%20I%20saw%20your%20portfolio%20and%20would%20love%20to%20chat!" target="_blank" rel="noopener noreferrer" class="contact-item">
+                        <i class="fab fa-whatsapp"></i> <span>+91 7015949787</span>
+                    </a>
+                    
+                    <!-- LinkedIn Link -->
+                    <a href="https://linkedin.com/in/dinesh-singh-770455331" target="_blank" rel="noopener noreferrer" class="contact-item">
+                        <i class="fab fa-linkedin"></i> <span>LinkedIn Profile</span>
+                    </a>
+                    
+                    <!-- Instagram Link -->
+                    <a href="https://instagram.com/yours_dinuuu" target="_blank" rel="noopener noreferrer" class="contact-item">
+                        <i class="fab fa-instagram"></i> <span>Instagram Profile</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Real Formspree form submission endpoint -->
+            <form action="https://formspree.io/f/xdarbrvl" method="POST" class="contact-form reveal" id="portfolioForm">
+                <div class="form-group">
+                    <input type="text" name="name" required placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" required placeholder="Your Email">
+                </div>
+                <div class="form-group">
+                    <textarea name="message" rows="5" required placeholder="Your Message"></textarea>
+                </div>
+                <button type="submit" class="btn primary-btn send-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; Dinesh. All rights reserved.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
