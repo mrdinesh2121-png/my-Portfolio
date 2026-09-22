@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AuraWeather | iOS Glass Experience</title>
+  
+  <!-- Font Awesome Icons & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="aura-weather.css" />
+</head>
+<body class="theme-day">
+
+  <!-- Ambient Dynamic Sky Background -->
+  <div class="sky-background" id="skyBg"></div>
+  <canvas id="weatherCanvas"></canvas>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- Main Container -->
+  <div class="app-wrapper">
+    
+    <!-- Top Bar: Search, Quick Cities & Geolocation -->
+    <header class="glass-bar nav-bar">
+      <div class="search-container">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="cityInput" placeholder="Search city or tap GPS..." autocomplete="off" />
+        <button id="clearSearchBtn" class="clear-btn" title="Clear search"><i class="fa-solid fa-xmark"></i></button>
+        <div id="searchDropdown" class="search-dropdown hidden"></div>
+      </div>
+
+      <div class="action-buttons">
+        <button id="gpsBtn" class="glass-btn icon-btn" title="Current Location">
+          <i class="fa-solid fa-location-arrow"></i>
+        </button>
+        <button id="unitToggleBtn" class="glass-btn unit-btn" title="Toggle °C / °F">
+          <span id="unitText">°C</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Popular Quick Pills -->
+    <div class="quick-chips">
+      <button class="chip active" data-city="Tokyo">Tokyo</button>
+      <button class="chip" data-city="New York">New York</button>
+      <button class="chip" data-city="London">London</button>
+      <button class="chip" data-city="Paris">Paris</button>
+      <button class="chip" data-city="Sydney">Sydney</button>
+    </div>
+
+    <!-- Main Content Layout -->
+    <main class="weather-content" id="weatherContent">
+      
+      <!-- Primary Weather Card -->
+      <section class="glass-card hero-card">
+        <div class="hero-top">
+          <div class="location-details">
+            <h1 id="cityName">Tokyo</h1>
+            <p id="countryName" class="country-sub">Japan</p>
+            <span id="currentTime" class="time-badge">Tuesday, 12:00 PM</span>
+          </div>
+          <div class="condition-badge" id="conditionPill">
+            <i class="fa-solid fa-sun" id="badgeIcon"></i>
+            <span id="conditionSummary">Clear Sky</span>
+          </div>
+        </div>
+
+        <div class="hero-center">
+          <div class="temp-huge-wrapper">
+            <span id="mainTemp" class="temp-huge">22</span>
+            <span class="degree-mark">°</span>
+          </div>
+          <div class="hero-icon-box">
+            <i class="fa-solid fa-sun weather-hero-icon" id="mainWeatherIcon"></i>
+          </div>
+        </div>
+
+        <div class="hero-bottom">
+          <div class="hl-temp">
+            <span>H: <strong id="highTemp">24°</strong></span>
+            <span>L: <strong id="lowTemp">16°</strong></span>
+            <span class="divider">•</span>
+            <span>Feels like <strong id="feelsLike">21°</strong></span>
+          </div>
+          <div class="device-badge" id="deviceBadge">
+            <i class="fa-solid fa-mobile-screen"></i>
+            <span id="deviceText">Adaptive Glass Mode</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Hourly Forecast Row -->
+      <section class="glass-card hourly-card">
+        <div class="card-header">
+          <i class="fa-regular fa-clock"></i>
+          <span>HOURLY FORECAST</span>
+        </div>
+        <div class="hourly-track" id="hourlyTrack">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Secondary Info Grid -->
+      <div class="metrics-grid">
+        
+        <!-- Wind -->
+        <div class="glass-card metric-card">
+          <div class="metric-head">
+            <i class="fa-solid fa-wind"></i>
+            <span>WIND</span>
+          </div>
+          <div class="metric-body">
+            <span class="metric-val" id="windVal">14</span>
+            <span class="metric-unit" id="windUnit">km/h</span>
+          </div>
+          <p class="metric-sub" id="windDirText">Direction: NE (45°)</p>
+        </div>
+
+        <!-- Humidity -->
+        <div class="glass-card metric-card">
+          <div class="metric-head">
+            <i class="fa-solid fa-droplet"></i>
+            <span>HUMIDITY</span>
+          </div>
+          <div class="metric-body">
+            <span class="metric-val" id="humidityVal">64</span>
+            <span class="metric-unit">%</span>
+          </div>
+          <p class="metric-sub" id="dewPointText">The dew point is 15°</p>
+        </div>
+
+        <!-- UV Index -->
+        <div class="glass-card metric-card">
+          <div class="metric-head">
+            <i class="fa-solid fa-sun"></i>
+            <span>UV INDEX</span>
+          </div>
+          <div class="metric-body">
+            <span class="metric-val" id="uvVal">5</span>
+            <span class="metric-level" id="uvLevel">Moderate</span>
+          </div>
+          <p class="metric-sub">Use sun protection until 4 PM</p>
+        </div>
+
+        <!-- Visibility -->
+        <div class="glass-card metric-card">
+          <div class="metric-head">
+            <i class="fa-solid fa-eye"></i>
+            <span>VISIBILITY</span>
+          </div>
+          <div class="metric-body">
+            <span class="metric-val" id="visVal">10</span>
+            <span class="metric-unit" id="visUnit">km</span>
+          </div>
+          <p class="metric-sub" id="visQuality">Perfect clear view</p>
+        </div>
+
+        <!-- Air Pressure -->
+        <div class="glass-card metric-card">
+          <div class="metric-head">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>PRESSURE</span>
+          </div>
+          <div class="metric-body">
+            <span class="metric-val" id="pressureVal">1014</span>
+            <span class="metric-unit">hPa</span>
+          </div>
+          <p class="metric-sub">Steady barometric trend</p>
+        </div>
+
+        <!-- Precipitation / Rain -->
+        <div class="glass-card metric-card">
+          <div class="metric-head">
+            <i class="fa-solid fa-cloud-rain"></i>
+            <span>PRECIPITATION</span>
+          </div>
+          <div class="metric-body">
+            <span class="metric-val" id="precipVal">0</span>
+            <span class="metric-unit">mm</span>
+          </div>
+          <p class="metric-sub">In the last 24 hours</p>
+        </div>
+
+      </div>
+
+      <!-- 7-Day Weekly Forecast -->
+      <section class="glass-card daily-card">
+        <div class="card-header">
+          <i class="fa-regular fa-calendar-days"></i>
+          <span>7-DAY FORECAST</span>
+        </div>
+        <div class="daily-list" id="dailyList">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Error/Notice Toast -->
+    <div id="toast" class="glass-toast hidden">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span id="toastMsg">Location not found</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="glass-footer">
+      <p>&copy; Dinesh. All rights reserved • Designed with iOS Frost Glass</p>
+    </footer>
+
+  </div>
+
+  <!-- External Script -->
+  <script src="aura-weather.js"></script>
+</body>
+</html>
